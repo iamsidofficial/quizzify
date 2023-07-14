@@ -17,8 +17,6 @@ function App() {
     setPage(pageNo)
   }
 
-  console.log("App rendered")
-
   return <>{pages[page]}</>
 }
 

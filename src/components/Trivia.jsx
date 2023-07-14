@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { nanoid } from "nanoid"
 import { getQueryEls } from "./utils"
 import { Ripple } from "react-awesome-spinners"
+import ExitGame from "./ExitGame"
 
 export default function Trivia(props) {
   const [queries, setQueries] = useState([])
@@ -58,7 +59,7 @@ export default function Trivia(props) {
     : 0
 
   const queryEls = getQueryEls(queries, setQueries, gameOver)
-  const classNames = popUpActive ? "PopUp visible" : "PopUp"
+  const popUpClassNames = popUpActive ? "PopUp visible" : "PopUp"
   function endGame() {
     if (gameOver) {
       props.nextPage(1)
@@ -78,14 +79,18 @@ export default function Trivia(props) {
   return (
     <div className="Trivia">
       {!queries.length ? (
-        <>
+        <div className="loader">
           <Ripple size="64" color="#5D6BaE" />
           <h2 className="loading-text">Loading Questions...</h2>
-        </>
+        </div>
       ) : (
         <>
-          <div className={classNames}>You need to answer all questions!</div>
-          {queryEls}
+          <div className={popUpClassNames}>
+            You need to answer all questions!
+          </div>
+
+          <ExitGame nextPage={props.nextPage} />
+          <div>{queryEls}</div>
 
           {gameOver && (
             <div className="Trivia--over">

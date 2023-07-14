@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { nanoid } from "nanoid"
 import { getQueryEls } from "./utils"
 import { Ripple } from "react-awesome-spinners"
+import ExitGame from "./ExitGame"
 
 export default function Preferences(props) {
   const [queries, setQueries] = useState([])
@@ -71,13 +72,14 @@ export default function Preferences(props) {
   return (
     <div className="Preferences">
       {!queries.length ? (
-        <>
+        <div className="loader">
           <Ripple size="64" color="#5D6BaE" />
           <h2 className="loading-text">Loading Categories...</h2>
-        </>
+        </div>
       ) : (
         <>
-          {queryEls}
+          <ExitGame nextPage={props.nextPage} />
+          <div>{queryEls}</div>
           <button onClick={handleClick} className="StartGame--button">
             Start Game
           </button>
